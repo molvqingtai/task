@@ -47,7 +47,7 @@ jobs:
           version: latest
       - run: pnpm install --ignore-scripts
       - run: pnpm run build
-      - run: pnpx semantic-release
+      - run: pnpm semantic-release
         env:
-          GH_TOKEN: ${{ secrets.RESREQ_GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.RESREQ_NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.TASK_GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.TASK_NPM_TOKEN }}
