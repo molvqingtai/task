@@ -2,7 +2,7 @@
 
 [![version](https://img.shields.io/github/v/release/molvqingtai/task)](https://www.npmjs.com/package/@resreq/task) [![workflow](https://github.com/molvqingtai/task/actions/workflows/ci.yml/badge.svg)](https://github.com/molvqingtai/task/actions) [![download](https://img.shields.io/npm/dt/@resreq/task)](https://www.npmjs.com/package/@resreq/task)
 
-⏰ Short and sweet task based on requestAnimationFrame API
+⏰ Short and sweet task.
 
 ## Install
 
