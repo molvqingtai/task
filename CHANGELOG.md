@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/molvqingtai/task/compare/v1.0.1...v1.0.2) (2024-12-08)
+
+
+### Bug Fixes
+
+* package main path is incorrect ([6bceec4](https://github.com/molvqingtai/task/commit/6bceec42897c81f2198173276a7bc15bdeb6517f))
+
 ## [1.0.1](https://github.com/molvqingtai/task/compare/v1.0.0...v1.0.1) (2024-12-08)
 
 
