@@ -25,12 +25,22 @@ describe('Test task', () => {
     })
   })
 
-  describe('Test event', () => {
+  describe('Test on event', () => {
     test('should emit start event', async () => {
       const callback = vi.fn()
       const task = new Task()
       task.on('start', callback)
       task.start()
+      task.stop()
+      expect(callback).toHaveBeenCalled()
+    })
+    test('should emit push event', async () => {
+      const callback = vi.fn()
+      const task = new Task()
+      task.on('push', callback)
+      task.push('1', () => 'foobar')
+      task.start()
+      await vi.advanceTimersByTimeAsync(100)
       task.stop()
       expect(callback).toHaveBeenCalled()
     })
@@ -79,6 +89,51 @@ describe('Test task', () => {
       task.push('1', () => 'foobar')
       task.clear()
       expect(callback).toHaveBeenCalled()
+    })
+  })
+
+  describe('Test off event', () => {
+    test('should not emit start event after off', async () => {
+      const callback = vi.fn()
+      const task = new Task()
+      task.on('start', callback)
+      task.off('start', callback)
+      task.start()
+      task.stop()
+      expect(callback).not.toHaveBeenCalled()
+    })
+
+    test('should not emit push event after off', async () => {
+      const callback = vi.fn()
+      const task = new Task()
+      task.on('push', callback)
+      task.off('push', callback)
+      task.push('1', () => 'foobar')
+      task.start()
+      await vi.advanceTimersByTimeAsync(100)
+      task.stop()
+      expect(callback).not.toHaveBeenCalled()
+    })
+
+    test('should not emit pause event after off', async () => {
+      const callback = vi.fn()
+      const task = new Task()
+      task.on('pause', callback)
+      task.off('pause', callback)
+      task.start()
+      task.pause()
+      task.stop()
+      expect(callback).not.toHaveBeenCalled()
+    })
+
+    test('should not emit stop event after off', async () => {
+      const callback = vi.fn()
+      const task = new Task()
+      task.on('stop', callback)
+      task.off('stop', callback)
+      task.start()
+      task.stop()
+      expect(callback).not.toHaveBeenCalled()
     })
   })
 
