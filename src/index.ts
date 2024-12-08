@@ -78,7 +78,7 @@ export default class Task {
       this.tasks.get(taskId)!.active = true
     })
 
-    timer.on('tick', (data) => {
+    timer.on('tick', (data: unknown) => {
       this.tasks.get(taskId)!.data = data
       this.tasks.get(taskId)!.active = false
       this.eventHub.emit('tick', data)
@@ -89,7 +89,7 @@ export default class Task {
       this.tasks.get(taskId)!.active = false
     })
 
-    timer.on('error', (error) => {
+    timer.on('error', (error: Error) => {
       this.tasks.get(taskId)!.error = error
       this.eventHub.emit('error', error)
       this.tasks.get(taskId)!.active = false
