@@ -53,4 +53,4 @@ const task = new Task({
 
 ## LICENSE
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/molvqingtai/task/blob/main/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/molvqingtai/task/blob/master/LICENSE) file for details.
