@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/molvqingtai/task/compare/v1.0.2...v1.1.0) (2024-12-08)
+
+
+### Features
+
+* add change api ([a7974c6](https://github.com/molvqingtai/task/commit/a7974c6b42b95e8713d181fe547df1fc97f280c8))
+
 ## [1.0.2](https://github.com/molvqingtai/task/compare/v1.0.1...v1.0.2) (2024-12-08)
 
 
