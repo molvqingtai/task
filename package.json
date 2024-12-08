@@ -53,6 +53,7 @@
   },
   "dependencies": {
     "@resreq/event-hub": "^1.6.0",
+    "@resreq/task": "^1.1.0",
     "@resreq/timer": "^1.2.1"
   }
 }
