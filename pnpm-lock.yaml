@@ -11,9 +11,6 @@ importers:
       '@resreq/event-hub':
         specifier: ^1.6.0
         version: 1.6.0
-      '@resreq/task':
-        specifier: ^1.1.0
-        version: 1.1.0
       '@resreq/timer':
         specifier: ^1.2.1
         version: 1.2.1
@@ -623,9 +620,6 @@ packages:
 
   '@resreq/event-hub@1.6.0':
     resolution: {integrity: sha512-SEzPuAc2bQdMV9cKrBIjW3EvntpU8NcBxdgdEo9yLKAeRfvdM4oM/sG8pFPRZOpYwOytaJqWGqwjc+RSRFFTvQ==}
-
-  '@resreq/task@1.1.0':
-    resolution: {integrity: sha512-37ySl4EMpkQj5smLrvatRejDzq3WFGI8q0eXuOb6kIQFHwHRWvVe6t/92JDQX9QMMKskCbcNdVAxLTf0cCTa5g==}
 
   '@resreq/timer@1.2.1':
     resolution: {integrity: sha512-O9B2fW2DlifcrtU8pE0zZ2CdxlPtG0JhWklZ8GGkJ49zR+yFpqlo727kPydCcdENfbvBgcpVhSL8PLpk13WT6w==}
@@ -3287,11 +3281,6 @@ snapshots:
       config-chain: 1.1.13
 
   '@resreq/event-hub@1.6.0': {}
-
-  '@resreq/task@1.1.0':
-    dependencies:
-      '@resreq/event-hub': 1.6.0
-      '@resreq/timer': 1.2.1
 
   '@resreq/timer@1.2.1':
     dependencies:
