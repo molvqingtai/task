@@ -24,7 +24,7 @@ export type TaskInfo = {
 
 export type TaskStatus = 'running' | 'paused' | 'stopped'
 
-export type TaskEvent = 'start' | 'pause' | 'stop' | 'tick' | 'error' | 'clear' | 'change' | 'push'
+export type TaskEvent = 'start' | 'pause' | 'stop' | 'tick' | 'error' | 'clear' | 'push' | 'change'
 
 export interface TaskListener {
   start: (time: number) => void
@@ -33,6 +33,8 @@ export interface TaskListener {
   error: (error: Error) => void
   tick: (data: any) => void
   clear: (time: number) => void
+  push: (id: number | string | symbol) => void
+  change: (list: TaskInfo[]) => void
 }
 
 export default class Task {
@@ -55,6 +57,10 @@ export default class Task {
 
   on<T extends keyof TaskListener>(event: T, listener: TaskListener[T]) {
     this.eventHub.on(event, listener)
+  }
+
+  off<T extends keyof TaskListener>(event?: T | T[], listener?: TaskListener[T]) {
+    this.eventHub.off(event, listener)
   }
 
   push(taskId: number | string | symbol, callback: TaskCallback) {
