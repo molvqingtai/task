@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/molvqingtai/task/compare/v1.0.0...v1.0.1) (2024-12-08)
+
+
+### Performance Improvements
+
+* if there is no task, return null ([57b9186](https://github.com/molvqingtai/task/commit/57b9186844fd29d6b4b942f1aefe71ea810d116e))
+
 # 1.0.0 (2024-12-08)
 
 
