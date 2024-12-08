@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/molvqingtai/task/compare/v1.1.0...v1.1.1) (2024-12-08)
+
+
+### Performance Improvements
+
+* add change event type ([dce238c](https://github.com/molvqingtai/task/commit/dce238cd071aef4836fc7a9f5a08d948d9db648d))
+
 # [1.1.0](https://github.com/molvqingtai/task/compare/v1.0.2...v1.1.0) (2024-12-08)
 
 
