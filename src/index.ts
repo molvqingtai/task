@@ -1,4 +1,4 @@
-import Timer, { TimerAdapter } from '@resreq/timer'
+import Timer, { TimerAdapter } from '@resreq/Timer'
 import EventHub from '@resreq/event-hub'
 
 export type { TimerAdapter }
@@ -43,7 +43,6 @@ export default class Task {
   private readonly adapter: TimerAdapter
   private readonly eventHub: EventHub
   public readonly tasks: Map<number | string | symbol, TaskInfo> = new Map()
-  private pausedTimer?: Timer
   constructor(options?: TaskOptions) {
     this.status = 'stopped'
     this.interval = options?.interval ?? 0
@@ -63,13 +62,20 @@ export default class Task {
     const lastTask = [...this.tasks.values()].at(-1)
     const timer = new Timer(callback, {
       limit: 1,
-      interval: lastTask?.timer?.status === 'stopped' ? 0 : this.interval,
+      interval:
+        this.tasks.size === 0 || lastTask?.status === 'success' || lastTask?.status === 'error' ? 0 : this.interval,
       includeAsyncTime: this.includeAsyncTime,
       adapter: this.adapter
     })
 
     timer.on('start', () => {
       this.tasks.get(taskId)!.status = 'loading'
+      this.tasks.get(taskId)!.active = true
+    })
+
+    timer.on('pause', () => {
+      this.tasks.get(taskId)!.status = 'default'
+      this.tasks.get(taskId)!.active = true
     })
 
     timer.on('tick', (data) => {
@@ -80,6 +86,7 @@ export default class Task {
 
     timer.on('end', () => {
       this.tasks.get(taskId)!.status = 'success'
+      this.tasks.get(taskId)!.active = false
     })
 
     timer.on('error', (error) => {
@@ -100,7 +107,7 @@ export default class Task {
     })
 
     if (this.status === 'running') {
-      if (this.tasks.size === 1 || lastTask?.timer?.status === 'stopped') {
+      if (this.tasks.size === 1 || !lastTask?.active) {
         timer.start()
       } else {
         lastTask?.timer?.on('end', () => {
@@ -147,7 +154,8 @@ export default class Task {
   pause() {
     if (this.status === 'running') {
       this.status = 'paused'
-      const runningTask = [...this.tasks.values()].find((task) => !task.active)
+      const runningTask = [...this.tasks.values()].find((task) => task.active)
+
       runningTask?.timer.pause()
       this.eventHub.emit('pause', Date.now())
     }
