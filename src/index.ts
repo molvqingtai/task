@@ -122,17 +122,15 @@ export default class Task {
   }
   query<T = any>(taskId: number | string | symbol) {
     const task = this.tasks.get(taskId)
-    if (task) {
-      return {
-        status: task.status,
-        data: task.data as T | null,
-        error: task.error,
-        index: task.index,
-        id: task.id
-      }
-    } else {
-      throw new Error(`Task ${taskId.toString()} not found`)
-    }
+    return task
+      ? {
+          status: task.status,
+          data: task.data as T | null,
+          error: task.error,
+          index: task.index,
+          id: task.id
+        }
+      : null
   }
   start() {
     if (this.status === 'stopped' || this.status === 'paused') {
