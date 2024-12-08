@@ -1,4 +1,4 @@
-import Timer, { TimerAdapter } from '@resreq/Timer'
+import Timer, { TimerAdapter } from '@resreq/timer'
 import EventHub from '@resreq/event-hub'
 
 export type { TimerAdapter }
