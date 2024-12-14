@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/molvqingtai/task/compare/v1.1.2...v1.1.3) (2024-12-14)
+
+
+### Bug Fixes
+
+* the status of the task is incorrect ([49de63c](https://github.com/molvqingtai/task/commit/49de63c878046f398ed69c20accb8a4933e73924))
+
 ## [1.1.2](https://github.com/molvqingtai/task/compare/v1.1.1...v1.1.2) (2024-12-08)
 
 
