@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/molvqingtai/task/compare/v1.1.1...v1.1.2) (2024-12-08)
+
+
+### Bug Fixes
+
+* delete self deps ([3f5b61a](https://github.com/molvqingtai/task/commit/3f5b61af29c97331075a9f30c6c4c1bbc5c19116))
+
 ## [1.1.1](https://github.com/molvqingtai/task/compare/v1.1.0...v1.1.1) (2024-12-08)
 
 
