@@ -87,14 +87,9 @@ export default class Task {
 
     timer.on('tick', (data: any) => {
       this.list.get(taskId)!.data = data
-      this.list.get(taskId)!.active = false
-      this.eventHub.emit('tick', data)
-      this.eventHub.emit('change', this.query())
-    })
-
-    timer.on('end', () => {
       this.list.get(taskId)!.status = 'success'
       this.list.get(taskId)!.active = false
+      this.eventHub.emit('tick', data)
       this.eventHub.emit('change', this.query())
     })
 
