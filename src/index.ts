@@ -28,7 +28,7 @@ export type TaskStatus = 'running' | 'paused' | 'stopped'
 
 export type TaskEvent = 'start' | 'pause' | 'stop' | 'tick' | 'error' | 'clear' | 'push' | 'change'
 
-export type TaskRunnerEvent = 'run:start' | 'run:pause' | 'run:stop' | 'run:success' | 'run:error'
+export type TaskRunnerEvent = 'run:start' | 'run:pause' | 'run:success' | 'run:error'
 
 export interface TaskListener {
   start: (time: number) => void
@@ -41,7 +41,6 @@ export interface TaskListener {
   change: (list: TaskRunner[]) => void
   'run:start': (id: TaskId) => void
   'run:pause': (id: TaskId) => void
-  'run:stop': (id: TaskId) => void
   'run:success': (id: TaskId, data: any) => void
   'run:error': (id: TaskId, error: Error) => void
 }
