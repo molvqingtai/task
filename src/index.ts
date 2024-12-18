@@ -9,15 +9,17 @@ export interface TaskOptions {
   adapter?: TimerAdapter
 }
 
-export type TaskCallback = () => any | Promise<any>
+export type TaskRun = () => any | Promise<any>
 
-export type CallbackStatus = 'default' | 'loading' | 'success' | 'error'
+export type TaskRunnerStatus = 'default' | 'loading' | 'success' | 'error'
 
-export type TaskInfo = {
-  status: CallbackStatus
+export type TaskId = number | string | symbol
+
+export type TaskRunner = {
+  status: TaskRunnerStatus
   data: any
   error: Error | null
-  id: number | string | symbol
+  id: TaskId
   index: number
   active: boolean
 }
@@ -26,6 +28,8 @@ export type TaskStatus = 'running' | 'paused' | 'stopped'
 
 export type TaskEvent = 'start' | 'pause' | 'stop' | 'tick' | 'error' | 'clear' | 'push' | 'change'
 
+export type TaskRunnerEvent = 'run:start' | 'run:pause' | 'run:stop' | 'run:success' | 'run:error'
+
 export interface TaskListener {
   start: (time: number) => void
   pause: (time: number) => void
@@ -33,8 +37,13 @@ export interface TaskListener {
   error: (error: Error) => void
   tick: (data: any) => void
   clear: (time: number) => void
-  push: (id: number | string | symbol) => void
-  change: (list: TaskInfo[]) => void
+  push: (id: TaskId) => void
+  change: (list: TaskRunner[]) => void
+  'run:start': (id: TaskId) => void
+  'run:pause': (id: TaskId) => void
+  'run:stop': (id: TaskId) => void
+  'run:success': (id: TaskId, data: any) => void
+  'run:error': (id: TaskId, error: Error) => void
 }
 
 export default class Task {
@@ -43,7 +52,7 @@ export default class Task {
   private readonly includeAsyncTime: boolean
   private readonly adapter: TimerAdapter
   private readonly eventHub: EventHub
-  public readonly list: Map<number | string | symbol, TaskInfo & { timer: Timer }> = new Map()
+  public readonly list: Map<TaskId, TaskRunner & { timer: Timer }> = new Map()
   constructor(options?: TaskOptions) {
     this.status = 'stopped'
     this.interval = options?.interval ?? 0
@@ -63,9 +72,13 @@ export default class Task {
     this.eventHub.off(event, listener)
   }
 
-  push(taskId: number | string | symbol, callback: TaskCallback) {
+  push(taskId: TaskId, run: TaskRun) {
+    if (this.list.has(taskId)) {
+      throw new Error(`Task "${taskId.toString()}" already exists`)
+    }
+
     const lastTask = [...this.list.values()].at(-1)
-    const timer = new Timer(callback, {
+    const timer = new Timer(run, {
       limit: 1,
       interval:
         this.list.size === 0 || lastTask?.status === 'success' || lastTask?.status === 'error' ? 0 : this.interval,
@@ -76,12 +89,14 @@ export default class Task {
     timer.on('start', () => {
       this.list.get(taskId)!.status = 'loading'
       this.list.get(taskId)!.active = true
+      this.eventHub.emit('run:start', taskId)
       this.eventHub.emit('change', this.query())
     })
 
     timer.on('pause', () => {
       this.list.get(taskId)!.status = 'default'
       this.list.get(taskId)!.active = true
+      this.eventHub.emit('run:pause', taskId)
       this.eventHub.emit('change', this.query())
     })
 
@@ -89,15 +104,17 @@ export default class Task {
       this.list.get(taskId)!.data = data
       this.list.get(taskId)!.status = 'success'
       this.list.get(taskId)!.active = false
+      this.eventHub.emit('run:success', taskId, data)
       this.eventHub.emit('tick', data)
       this.eventHub.emit('change', this.query())
     })
 
     timer.on('error', (error: Error) => {
       this.list.get(taskId)!.error = error
-      this.eventHub.emit('error', error)
       this.list.get(taskId)!.active = false
       this.list.get(taskId)!.status = 'error'
+      this.eventHub.emit('run:error', taskId, error)
+      this.eventHub.emit('error', error)
       this.eventHub.emit('change', this.query())
     })
 
@@ -124,9 +141,9 @@ export default class Task {
     this.eventHub.emit('change', this.query())
   }
 
-  query(): TaskInfo[]
-  query(taskId: number | string | symbol): TaskInfo | null
-  query(taskId?: number | string | symbol): TaskInfo[] | TaskInfo | null {
+  query(): TaskRunner[]
+  query(taskId: TaskId): TaskRunner | null
+  query(taskId?: TaskId): TaskRunner[] | TaskRunner | null {
     if (taskId !== undefined) {
       const task = this.list.get(taskId)
       return task
@@ -171,16 +188,17 @@ export default class Task {
     if (this.status === 'running') {
       this.status = 'paused'
       const runningTask = [...this.list.values()].find((task) => task.active)
-
       runningTask?.timer.pause()
       this.eventHub.emit('pause', Date.now())
       this.eventHub.emit('change', this.query())
     }
   }
   clear() {
-    this.stop()
-    this.list.clear()
-    this.eventHub.emit('clear', Date.now())
-    this.eventHub.emit('change', this.query())
+    if (this.list.size) {
+      this.stop()
+      this.list.clear()
+      this.eventHub.emit('clear', Date.now())
+      this.eventHub.emit('change', this.query())
+    }
   }
 }
