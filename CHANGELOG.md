@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/molvqingtai/task/compare/v1.2.0...v1.2.1) (2024-12-18)
+
+
+### Performance Improvements
+
+* delete run:stop event ([dc84742](https://github.com/molvqingtai/task/commit/dc84742b789a97e242cd4c434a31c47266270a5b))
+
 # [1.2.0](https://github.com/molvqingtai/task/compare/v1.1.3...v1.2.0) (2024-12-18)
 
 
