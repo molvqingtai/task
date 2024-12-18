@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/molvqingtai/task/compare/v1.1.3...v1.2.0) (2024-12-18)
+
+
+### Features
+
+* support runner event ([37e49e1](https://github.com/molvqingtai/task/commit/37e49e12b4cc835fe64350a965c81c3a4e0d3c69))
+
 ## [1.1.3](https://github.com/molvqingtai/task/compare/v1.1.2...v1.1.3) (2024-12-14)
 
 
