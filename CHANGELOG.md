@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/molvqingtai/task/compare/v1.2.1...v1.3.0) (2025-02-14)
+
+
+### Features
+
+* use a single timer ([b933786](https://github.com/molvqingtai/task/commit/b933786880dd7a84d52244fb8321cc3ebe01caf6))
+
 ## [1.2.1](https://github.com/molvqingtai/task/compare/v1.2.0...v1.2.1) (2024-12-18)
 
 
