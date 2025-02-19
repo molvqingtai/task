@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/molvqingtai/task/compare/v1.3.2...v1.3.3) (2025-02-19)
+
+
+### Performance Improvements
+
+* unification event ([3b55835](https://github.com/molvqingtai/task/commit/3b558359d0abfe22b57d99038e26f9694820c7a8))
+
 ## [1.3.2](https://github.com/molvqingtai/task/compare/v1.3.1...v1.3.2) (2025-02-19)
 
 
