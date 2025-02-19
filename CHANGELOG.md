@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/molvqingtai/task/compare/v1.3.0...v1.3.1) (2025-02-19)
+
+
+### Performance Improvements
+
+* change type name TaskRun -> TaskRunnerRun ([af08edb](https://github.com/molvqingtai/task/commit/af08edb55b87749158d88f2c47f973fa65ddb962))
+
 # [1.3.0](https://github.com/molvqingtai/task/compare/v1.2.1...v1.3.0) (2025-02-14)
 
 
