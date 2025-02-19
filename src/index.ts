@@ -9,7 +9,7 @@ export interface TaskOptions {
   adapter?: TimerAdapter
 }
 
-export type TaskRun = () => any | Promise<any>
+export type TaskRunnerRun = () => any | Promise<any>
 
 export type TaskRunnerStatus = 'pending' | 'running' | 'fulfilled' | 'rejected'
 
@@ -21,7 +21,7 @@ export type TaskRunner = {
   error: Error | null
   id: TaskRunnerId
   index: number
-  run: TaskRun
+  run: TaskRunnerRun
 }
 
 export type TaskStatus = 'running' | 'paused' | 'stopped'
@@ -77,7 +77,7 @@ export default class Task {
       return [...this.list.values()].map((task) => task)
     }
   }
-  push(TaskRunnerId: TaskRunnerId, run: TaskRun) {
+  push(TaskRunnerId: TaskRunnerId, run: TaskRunnerRun) {
     if (this.list.has(TaskRunnerId)) {
       throw new Error(`Task "${TaskRunnerId.toString()}" already exists`)
     }
