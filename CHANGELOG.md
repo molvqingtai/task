@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/molvqingtai/task/compare/v1.3.1...v1.3.2) (2025-02-19)
+
+
+### Performance Improvements
+
+* event add TaskStatus ([3b70aba](https://github.com/molvqingtai/task/commit/3b70abaa86e7a35ac606422b263bc0066f5a091b))
+
 ## [1.3.1](https://github.com/molvqingtai/task/compare/v1.3.0...v1.3.1) (2025-02-19)
 
 
