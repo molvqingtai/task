@@ -31,12 +31,12 @@ export type TaskEvent = 'start' | 'pause' | 'stop' | 'clear' | 'push' | 'change'
 export type TaskRunnerEvent = 'runner:start' | 'runner:success' | 'runner:error' | 'runner:end'
 
 export interface TaskListener {
-  start: (time: number) => void
-  pause: (time: number) => void
-  stop: (time: number) => void
-  clear: (runners: TaskRunner[]) => void
-  push: (runner: TaskRunner) => void
-  change: (runners: TaskRunner[]) => void
+  start: (status: TaskStatus, time: number) => void
+  pause: (status: TaskStatus, time: number) => void
+  stop: (status: TaskStatus, time: number) => void
+  clear: (status: TaskStatus, runners: TaskRunner[]) => void
+  push: (status: TaskStatus, runner: TaskRunner) => void
+  change: (status: TaskStatus, runners: TaskRunner[]) => void
   'runner:start': (runner: TaskRunner) => void
   'runner:success': (runner: TaskRunner) => void
   'runner:error': (runner: TaskRunner) => void
@@ -89,9 +89,9 @@ export default class Task {
       index: this.list.size,
       run
     })
-    this.eventHub.emit('push', this.list.get(TaskRunnerId))
+    this.eventHub.emit('push', this.status, this.list.get(TaskRunnerId))
     this.status === 'running' && this.timer?.start()
-    this.eventHub.emit('change', this.list)
+    this.eventHub.emit('change', this.status, this.list)
   }
 
   start() {
@@ -104,19 +104,18 @@ export default class Task {
           try {
             this.list.get(runner!.id)!.status = 'running'
             this.eventHub.emit('runner:start', runner!.id, runner.data)
-            this.eventHub.emit('change', this.list)
+            this.eventHub.emit('change', this.status, this.list)
             await runner.run()
             this.list.get(runner!.id)!.status = 'fulfilled'
             this.list.get(runner!.id)!.data = runner.data
             this.eventHub.emit('runner:success', runner!.id, runner.data)
-            this.eventHub.emit('change', this.list)
           } catch (error) {
             this.list.get(runner.id)!.status = 'rejected'
             this.list.get(runner.id)!.error = error as Error
             this.eventHub.emit('runner:error', runner)
-            this.eventHub.emit('change', this.list)
           } finally {
             this.eventHub.emit('runner:end', runner)
+            this.eventHub.emit('change', this.status, this.list)
           }
         },
         {
@@ -129,28 +128,28 @@ export default class Task {
     }
     this.list.size && this.timer.start()
     this.status = 'running'
-    this.eventHub.emit('start', Date.now())
-    this.eventHub.emit('change', this.query())
+    this.eventHub.emit('start', this.status, Date.now())
+    this.eventHub.emit('change', this.status, this.list)
   }
   pause() {
     if (this.status === 'paused') return
     this.timer?.pause()
     this.status = 'paused'
-    this.eventHub.emit('pause', Date.now())
-    this.eventHub.emit('change', this.query())
+    this.eventHub.emit('pause', this.status, Date.now())
+    this.eventHub.emit('change', this.status, this.list)
   }
   stop() {
     if (this.status === 'stopped') return
     this.timer?.stop()
     this.status = 'stopped'
-    this.eventHub.emit('stop', Date.now())
-    this.eventHub.emit('change', this.query())
+    this.eventHub.emit('stop', this.status, Date.now())
+    this.eventHub.emit('change', this.status, this.list)
   }
   clear() {
     if (!this.list.size) return
     this.stop()
     this.list.clear()
-    this.eventHub.emit('clear', [])
-    this.eventHub.emit('change', this.query())
+    this.eventHub.emit('clear', this.status, [])
+    this.eventHub.emit('change', this.status, this.list)
   }
 }
