@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/molvqingtai/task/compare/v1.4.0...v1.4.1) (2025-02-22)
+
+
+### Bug Fixes
+
+* add reset event ([b5acb4f](https://github.com/molvqingtai/task/commit/b5acb4f95a49a63b893df380da10a22b41cb796c))
+
 # [1.4.0](https://github.com/molvqingtai/task/compare/v1.3.4...v1.4.0) (2025-02-22)
 
 
