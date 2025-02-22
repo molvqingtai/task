@@ -35,6 +35,7 @@ export interface TaskListener {
   pause: (event: TaskEvent) => void
   stop: (event: TaskEvent) => void
   clear: (event: TaskEvent) => void
+  reset: (event: TaskEvent) => void
   push: (event: TaskEvent) => void
   change: (event: TaskEvent) => void
   'runner:start': (event: TaskRunnerEvent) => void
