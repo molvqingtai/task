@@ -147,9 +147,22 @@ export default class Task {
   }
   clear() {
     if (!this.runners.size) return
-    this.stop()
+    this.timer?.stop()
+    this.status = 'stopped'
     this.runners.clear()
     this.eventHub.emit('clear', { status: this.status, runners: this.query() })
+    this.eventHub.emit('change', { status: this.status, runners: this.query() })
+  }
+  reset() {
+    if (!this.runners.size) return
+    this.timer?.stop()
+    this.status = 'stopped'
+    this.runners.forEach((runner) => {
+      runner.status = 'pending'
+      runner.data = null
+      runner.error = null
+    })
+    this.eventHub.emit('reset', { status: this.status, runners: this.query() })
     this.eventHub.emit('change', { status: this.status, runners: this.query() })
   }
 }
