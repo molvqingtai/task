@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/molvqingtai/task/compare/v1.3.4...v1.4.0) (2025-02-22)
+
+
+### Features
+
+* add reset api ([abb7b66](https://github.com/molvqingtai/task/commit/abb7b6690d2ebebce394441f9f47f8af977ab062))
+
 ## [1.3.4](https://github.com/molvqingtai/task/compare/v1.3.3...v1.3.4) (2025-02-22)
 
 
