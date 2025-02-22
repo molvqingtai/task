@@ -11,7 +11,7 @@ export interface TaskOptions {
 
 export type TaskRunnerRun = () => any | Promise<any>
 
-export type TaskRunnerStatus = 'pending' | 'running' | 'fulfilled' | 'rejected'
+export type TaskRunnerStatus = 'pending' | 'running' | 'success' | 'error'
 
 export type TaskRunnerId = number | string | symbol
 
@@ -106,11 +106,11 @@ export default class Task {
             this.eventHub.emit('runner:start', runner)
             this.eventHub.emit('change', { status: this.status, runners: this.query() })
             await runner.run()
-            this.runners.get(runner!.id)!.status = 'fulfilled'
+            this.runners.get(runner!.id)!.status = 'success'
             this.runners.get(runner!.id)!.data = runner.data
             this.eventHub.emit('runner:success', runner)
           } catch (error) {
-            this.runners.get(runner.id)!.status = 'rejected'
+            this.runners.get(runner.id)!.status = 'error'
             this.runners.get(runner.id)!.error = error as Error
             this.eventHub.emit('runner:error', runner)
           } finally {
