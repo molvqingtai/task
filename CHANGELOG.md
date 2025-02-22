@@ -1,3 +1,10 @@
+## [1.3.4](https://github.com/molvqingtai/task/compare/v1.3.3...v1.3.4) (2025-02-22)
+
+
+### Performance Improvements
+
+* change TaskRunner status name ([8ac4c56](https://github.com/molvqingtai/task/commit/8ac4c56577cee1f8c0e3326517160727a953e05f))
+
 ## [1.3.3](https://github.com/molvqingtai/task/compare/v1.3.2...v1.3.3) (2025-02-19)
 
 
