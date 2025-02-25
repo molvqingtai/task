@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/molvqingtai/task/compare/v1.4.1...v1.4.2) (2025-02-25)
+
+
+### Performance Improvements
+
+* add push options ([5a8e4ec](https://github.com/molvqingtai/task/commit/5a8e4ec00cdb573d5ecb0e3571193fd14e04eb5d))
+
 ## [1.4.1](https://github.com/molvqingtai/task/compare/v1.4.0...v1.4.1) (2025-02-22)
 
 
