@@ -78,12 +78,12 @@ export default class Task {
       return [...this.runners.values()].map((task) => task)
     }
   }
-  push(TaskRunnerId: TaskRunnerId, run: TaskRunnerRun, options?: Omit<TaskRunner, 'run'>) {
+  push(TaskRunnerId: TaskRunnerId, run: TaskRunnerRun, init?: Omit<TaskRunner, 'run'>) {
     if (this.runners.has(TaskRunnerId)) {
       throw new Error(`Task "${TaskRunnerId.toString()}" already exists`)
     }
     this.runners.set(TaskRunnerId, {
-      ...{ status: 'pending', data: null, error: null, id: TaskRunnerId, index: this.runners.size, ...options },
+      ...{ status: 'pending', data: null, error: null, id: TaskRunnerId, index: this.runners.size, ...init },
       run
     })
     this.eventHub.emit('push', { status: this.status, runners: this.query() })
