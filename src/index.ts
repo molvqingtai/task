@@ -17,8 +17,8 @@ export type TaskRunnerId = number | string | symbol
 
 export type TaskRunner = {
   status: TaskRunnerStatus
-  data: any
-  error: Error | null
+  data?: any
+  error?: Error
   id: TaskRunnerId
   index: number
   run: TaskRunnerRun
@@ -83,7 +83,7 @@ export default class Task {
       throw new Error(`Task "${TaskRunnerId.toString()}" already exists`)
     }
     this.runners.set(TaskRunnerId, {
-      ...{ status: 'pending', data: null, error: null, id: TaskRunnerId, index: this.runners.size, ...init },
+      ...{ status: 'pending', data: undefined, error: undefined, id: TaskRunnerId, index: this.runners.size, ...init },
       run
     })
     this.eventHub.emit('push', { status: this.status, runners: this.query() })
@@ -102,9 +102,9 @@ export default class Task {
             this.runners.get(runner!.id)!.status = 'running'
             this.eventHub.emit('runner:start', runner)
             this.eventHub.emit('change', { status: this.status, runners: this.query() })
-            await runner.run()
+            const data = await runner.run()
             this.runners.get(runner!.id)!.status = 'success'
-            this.runners.get(runner!.id)!.data = runner.data
+            this.runners.get(runner!.id)!.data = data
             this.eventHub.emit('runner:success', runner)
           } catch (error) {
             this.runners.get(runner.id)!.status = 'error'
