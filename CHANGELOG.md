@@ -1,3 +1,11 @@
+## [1.4.4](https://github.com/molvqingtai/task/compare/v1.4.3...v1.4.4) (2025-02-27)
+
+
+### Bug Fixes
+
+* no runner data returned ([731a8cf](https://github.com/molvqingtai/task/commit/731a8cf330bdf22447ee9a9c08cb710e0d13073b))
+* type error ([3ed5264](https://github.com/molvqingtai/task/commit/3ed52640ae9d01953ec3da7c66b009813b32b99d))
+
 ## [1.4.3](https://github.com/molvqingtai/task/compare/v1.4.2...v1.4.3) (2025-02-26)
 
 
