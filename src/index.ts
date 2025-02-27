@@ -156,8 +156,8 @@ export default class Task {
     this.status = 'stopped'
     this.runners.forEach((runner) => {
       runner.status = 'pending'
-      runner.data = null
-      runner.error = null
+      runner.data = undefined
+      runner.error = undefined
     })
     this.eventHub.emit('reset', { status: this.status, runners: this.query() })
     this.eventHub.emit('change', { status: this.status, runners: this.query() })
