@@ -1,3 +1,10 @@
+## [1.4.5](https://github.com/molvqingtai/task/compare/v1.4.4...v1.4.5) (2025-03-05)
+
+
+### Performance Improvements
+
+* support allowOverride options ([1705e8a](https://github.com/molvqingtai/task/commit/1705e8a60a7b4d41b537e10d8760e693522bf9d0))
+
 ## [1.4.4](https://github.com/molvqingtai/task/compare/v1.4.3...v1.4.4) (2025-02-27)
 
 
