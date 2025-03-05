@@ -6,6 +6,7 @@ export type { TimerAdapter }
 export interface TaskOptions {
   interval?: number
   includeAsyncTime?: boolean
+  allowOverride?: boolean
   adapter?: TimerAdapter
 }
 
@@ -47,6 +48,7 @@ export interface TaskListener {
 export default class Task {
   private readonly interval: number
   private readonly includeAsyncTime: boolean
+  private readonly allowOverride: boolean
   private readonly adapter: TimerAdapter
   private readonly eventHub: EventHub
   private timer: Timer | null = null
@@ -56,6 +58,7 @@ export default class Task {
     this.status = 'stopped'
     this.interval = options?.interval ?? 0
     this.includeAsyncTime = options?.includeAsyncTime ?? false
+    this.allowOverride = options?.allowOverride ?? false
     this.adapter = options?.adapter ?? {
       setTimer: globalThis.setTimeout.bind(globalThis),
       cancelTimer: globalThis.clearTimeout.bind(globalThis)
@@ -79,8 +82,12 @@ export default class Task {
     }
   }
   push(TaskRunnerId: TaskRunnerId, run: TaskRunnerRun, init?: Omit<TaskRunner, 'run'>) {
-    if (this.runners.has(TaskRunnerId)) {
-      throw new Error(`Task "${TaskRunnerId.toString()}" already exists`)
+    if (this.allowOverride) {
+      this.runners.delete(TaskRunnerId)
+    } else {
+      if (this.runners.has(TaskRunnerId)) {
+        throw new Error(`Task "${TaskRunnerId.toString()}" already exists`)
+      }
     }
     this.runners.set(TaskRunnerId, {
       ...{ status: 'pending', data: undefined, error: undefined, id: TaskRunnerId, index: this.runners.size, ...init },
