@@ -1,3 +1,10 @@
+## [1.4.6](https://github.com/molvqingtai/task/compare/v1.4.5...v1.4.6) (2025-05-13)
+
+
+### Performance Improvements
+
+* fix push init type ([4dd061a](https://github.com/molvqingtai/task/commit/4dd061ac31d165f92b5f25f9c246ae53007129de))
+
 ## [1.4.5](https://github.com/molvqingtai/task/compare/v1.4.4...v1.4.5) (2025-03-05)
 
 
