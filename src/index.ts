@@ -81,7 +81,7 @@ export default class Task {
       return [...this.runners.values()].map((task) => task)
     }
   }
-  push(TaskRunnerId: TaskRunnerId, run: TaskRunnerRun, init?: Omit<TaskRunner, 'run'>) {
+  push(TaskRunnerId: TaskRunnerId, run: TaskRunnerRun, init?: Partial<Omit<TaskRunner, 'run'>>) {
     if (this.allowOverride) {
       this.runners.delete(TaskRunnerId)
     } else {
